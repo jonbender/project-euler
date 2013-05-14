@@ -5,20 +5,12 @@ import functools
 import collections
 import math
 import random
-from Queue import Queue
-
- # note that this decorator ignores **kwargs
-def memoized(obj):
-     cache = obj.cache = {}
-     @functools.wraps(obj)
-     def memoizer(*args, **kwargs):
-         if args not in cache:
-             cache[args] = obj(*args, **kwargs)
-         return cache[args]
-     return memoizer
 
 def gcd(a,b):
         return a if not b else gcd(b,a % b)
+
+def lcm(a,b):
+    return a*b / gcd(a,b)
 
 def miller_rabin(n,k=100):
     '''Probabilistic primality test'''
@@ -182,10 +174,6 @@ def ex4():
             return p
 
 def ex5():
-    def gcd(a,b):
-        return a if not b else gcd(b,a % b)
-    def lcm(a,b):
-        return a*b / gcd(a,b)
     n = 1
     for i in xrange(1,21):
         n = lcm(n,i)
@@ -772,8 +760,6 @@ We shall consider fractions like, 30/50 = 3/5, to be trivial examples.
 There are exactly four non-trivial examples of this type of fraction, less than one in value, and containing two digits in the numerator and denominator.
 If the product of these four fractions is given in its lowest common terms, find the value of the denominator.'''
 
-    def gcd(a,b):
-        return a if b == 0 else gcd(b,a % b)
     def common_digit(sa,sb):
         for i,a in enumerate(sa):
             if a in sb and i != sb.index(a):
